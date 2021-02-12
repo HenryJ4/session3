@@ -44,7 +44,7 @@ public abstract class Account {
     private long id;
     private String name;
     private String acctNumber;
-    private double balance;
+    protected double balance;
 
     public Account(String name, double balance) {
         this.name = name;
