@@ -17,4 +17,9 @@ public class InterestAccount extends Account{
 
     @Override
     protected void finishWithdraw() {}
+
+    @Override
+    protected void finishDeposit() {
+
+    }
 }

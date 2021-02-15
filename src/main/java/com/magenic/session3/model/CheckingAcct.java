@@ -1,22 +1,11 @@
-package com.magenic.session3.models;
+package com.magenic.session3.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
-public class CheckingAcct {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
-    private Long id;
-    private String name;
-    private String acctNo;
-    private double balance;
+public class CheckingAcct extends Account {
 
     @JsonIgnore
     private double minimumBal = 100;
@@ -30,36 +19,12 @@ public class CheckingAcct {
     @JsonIgnore
     private double amt;
 
-    public Long getId() {
-        return id;
+    public CheckingAcct() {
+        super("", 100);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAcctNo() {
-        return acctNo;
-    }
-
-    public void setAcctNo(String acctNo) {
-        this.acctNo = acctNo;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public CheckingAcct(String name) {
+        super(name, 100);
     }
 
     public double getMinimumBal() {
@@ -92,5 +57,19 @@ public class CheckingAcct {
 
     public void setAmt(double amt) {
         this.amt = amt;
+    }
+
+    @Override
+    protected void finishWithdraw() {
+        if(super.balance < this.minimumBal){
+            setBalance(super.balance - this.penalty - this.transactionCharge);
+        }else{
+            setBalance(super.balance - this.transactionCharge);
+        }
+    }
+
+    @Override
+    protected void finishDeposit() {
+        setBalance(super.balance - this.transactionCharge);
     }
 }

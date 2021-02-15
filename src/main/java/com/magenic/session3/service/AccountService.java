@@ -11,33 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AccountService {
-    @Autowired
-    AccountRepository repository;
+public interface AccountService {
 
-    public Account createOrUpdateAccount(Account account) {
-        return this.repository.save(account);
-    }
+    public void deleteAccount(long id) throws RecordNotFoundException;
+    public List<Account> getAllAccounts();
+    public Account getAccountById(long id) throws RecordNotFoundException;
+    public Account createOrUpdateAccount(Account account);
 
-    public Account getAccountById(long id) throws RecordNotFoundException {
-        Optional<Account> account = this.repository.findById(id);
-
-        if (account.isPresent()) {
-            return account.get();
-        } else {
-            throw new RecordNotFoundException("No account exists for given ID");
-        }
-    }
-
-    public List<Account> getAllAccounts() {
-        return this.repository.findAll();
-    }
-
-    public void deleteAccount(long id) throws RecordNotFoundException {
-        try {
-            this.repository.deleteById(id);
-        } catch (Exception ex) {
-            throw new RecordNotFoundException("No account exists for given ID");
-        }
-    }
 }

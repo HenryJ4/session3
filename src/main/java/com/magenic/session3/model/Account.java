@@ -56,8 +56,11 @@ public abstract class Account {
 
     protected abstract void finishWithdraw();
 
+    protected abstract void finishDeposit();
+
     public void deposit(double amount) {
         this.balance += amount;
+        this.finishDeposit();
     }
 
     public void withdraw(double amount) {

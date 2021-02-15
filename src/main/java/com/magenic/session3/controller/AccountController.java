@@ -27,6 +27,9 @@ public class AccountController {
             case "interest":
                 account = new InterestAccount(form.getName());
                 break;
+            case "checking":
+                account = new CheckingAcct(form.getName());
+                break;
             default:
                 account = null;
                 break;
