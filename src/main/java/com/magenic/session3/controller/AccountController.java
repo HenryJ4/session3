@@ -24,6 +24,9 @@ public class AccountController {
             ) {
         Account account;
         switch (form.getType()) {
+            case "regular":
+                account = new RegularAccount(form.getName());
+                break;
             case "interest":
                 account = new InterestAccount(form.getName());
                 break;

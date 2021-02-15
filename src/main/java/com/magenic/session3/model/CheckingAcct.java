@@ -60,7 +60,14 @@ public class CheckingAcct extends Account {
     }
 
     @Override
-    protected void finishWithdraw() {
+    public void deposit(double amount) {
+       super.deposit(amount);
+        setBalance(super.balance - this.transactionCharge);
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        super.withdraw(amount);
         if(super.balance < this.minimumBal){
             setBalance(super.balance - this.penalty - this.transactionCharge);
         }else{
@@ -69,7 +76,8 @@ public class CheckingAcct extends Account {
     }
 
     @Override
-    protected void finishDeposit() {
-        setBalance(super.balance - this.transactionCharge);
+    protected void finishWithdraw() {
+
     }
+
 }
